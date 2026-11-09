@@ -9,8 +9,15 @@ button,input,select,textarea{font:inherit}select,input,textarea{color:#131722;ba
 
 .lite-notebook{max-width:800px;margin:0 auto;padding:32px 24px 64px}
 .lite-notebook .workspace-toolbar{margin-bottom:18px;gap:8px}
-.lite-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 0 22px}
-.lite-heading h1{font-size:clamp(24px,4vw,36px);margin:0}
+.lite-heading{padding:16px 0 28px}
+.lite-heading h1{font-size:clamp(28px,4vw,38px);margin:0 0 18px}
+.lite-companies{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.lite-company{display:flex;flex-direction:column;gap:4px;min-width:0;padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);text-decoration:none}
+.lite-company strong{font-size:18px;line-height:1.2}
+.lite-company span{font-size:13px;color:#5d606b;overflow-wrap:anywhere}
+.lite-company:hover{border-color:#9598a1}
+.lite-company[aria-current=page]{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue);background:#f2f5ff}
+.lite-company[aria-current=page] strong{color:var(--blue)}
 .lite-section{padding:20px 0;border-top:1px solid var(--line)}
 .lite-section h2,.lite-section label{margin-top:0}
 .lite-section h2{margin-bottom:0}
@@ -29,7 +36,7 @@ button,input,select,textarea{font:inherit}select,input,textarea{color:#131722;ba
 .lite-source{margin:12px 0;color:var(--muted)}
 .lite-source .form-label{margin-top:10px}
 .lite-capture-context{margin-top:8px}
-@media(max-width:540px){.lite-notebook{padding:20px 16px 44px}.lite-heading{align-items:flex-start;flex-direction:column}.lite-notebook .workspace-toolbar{align-items:flex-start}}
+@media(max-width:540px){.lite-notebook{padding:20px 16px 44px}.lite-companies{gap:6px}.lite-company{padding:10px 8px}.lite-company strong{font-size:15px}.lite-company span{font-size:12px}.lite-notebook .workspace-toolbar{align-items:flex-start}}
 /* Native product references are unchanged images; only the added entry is HTML. */
 .native-reference{background:#fff;min-height:100svh}.reference-scroll{width:100%;overflow-x:auto;overscroll-behavior-x:contain}.reference-stage{position:relative;width:100%;min-width:1000px;container-type:inline-size;background:#fff}.native-background{display:block;width:100%;height:auto;user-select:none;pointer-events:none}.native-entry{position:absolute;display:flex;align-items:center;justify-content:center;gap:.3cqw;box-sizing:border-box;border:1px solid #d1d4dc;border-radius:.35cqw;background:#fff;color:#131722;padding:0 .3cqw;line-height:1;white-space:nowrap;font-size:clamp(10px,.95cqw,15px);font-weight:500;z-index:3;box-shadow:0 1px 2px #13172208}.native-entry:hover{background:#f0f3fa;border-color:#9598a1}.native-entry:focus-visible{outline:2px solid #2962ff;outline-offset:3px}.native-entry-icon{padding:.45cqw}.native-entry svg{width:100%;height:100%;stroke-width:1.5}.native-hit{position:absolute;display:block;z-index:2;border-radius:4px}.native-hit:hover{background:#2962ff08}.native-hit:focus-visible{outline:2px solid #2962ff;outline-offset:2px}.reference-stage.show-entry .native-entry{outline:2px solid #2962ff;outline-offset:4px;box-shadow:0 0 0 9px #2962ff18}.reference-footer{padding:10px 16px 12px;background:#fafafa;border-top:1px solid #e0e3eb;display:flex;align-items:center;gap:12px 20px;flex-wrap:wrap;color:#787b86;font-size:10px;line-height:1.5}.reference-footer>span{white-space:nowrap}.reference-footer nav{display:flex;gap:14px;flex-wrap:wrap}.reference-footer a:hover{color:#2962ff}.reference-review{margin-left:auto;display:flex;gap:12px;align-items:center}.reference-review button{font-size:10px;min-height:22px;line-height:16px;padding:3px 5px}.reference-footer small{flex-basis:100%;font-size:9px;color:#9598a1}.unsupported-reference{padding:45px 32px;max-width:900px;line-height:1.6}.unsupported-reference p{color:#787b86}.unsupported-reference .button{margin:15px 12px 20px 0}.unsupported-reference .text-link{display:block}.source-return{color:#2962ff}.home .hero .entry-hint{display:none}@media(min-width:961px){.mainnav>.optional-nav{display:block!important}.mainnav .navlink{font-size:14px;padding:10px 7px}.mainnav .research-nav{font-weight:500;display:flex;align-items:center}.mainnav .research-nav .new{font-size:8px}.top{gap:18px}.top .search{width:170px}.top .search kbd{display:none}.header-end{gap:10px}.language{display:none}.top .brand{font-size:25px}.top .getstarted{padding:11px 17px}}@media(min-width:1450px){.top{gap:28px}.top .search{width:220px}.mainnav .navlink{font-size:16px;padding-inline:10px}.language{display:flex}.top .brand{font-size:28px}}@media(max-width:680px){.reference-footer{padding:10px 12px;gap:10px;font-size:10px}.reference-review{margin-left:0}.reference-footer nav{gap:12px}.unsupported-reference{padding:28px 18px}.unsupported-reference h1{font-size:26px}}
 
@@ -67,8 +74,13 @@ function modelField(label,name,value='',type='textarea',opts=''){return type==='
 function selectedOption(value,label,selected){return `<option value="${esc(value)}" ${value===selected?'selected':''}>${esc(label)}</option>`;}
 function header(){return `<header class="top"><a class="brand" href="?v=6" aria-label="TradingView — home">${logo}TradingView</a><a class="search" href="https://www.tradingview.com/search/" target="_blank" rel="noopener" aria-label="Search on TradingView">${icon('search')}<span>Search</span><kbd>⌘ K</kbd></a><nav class="mainnav" aria-label="Main navigation"><details class="products"><summary class="menu-trigger">Products ${icon('chevron')}</summary><div class="product-menu"><div class="menu-label">MARKET ANALYSIS</div><a class="product-item" href="${surfaceUrl('chart')}">${icon('chart')}<div><strong>Supercharts</strong><small>Chart context and existing symbol notes</small></div></a><a class="product-item" href="${surfaceUrl('financials')}">${icon('screener')}<div><strong>Financials</strong><small>Capture a metric with its period and source</small></div></a><a class="product-item" href="${surfaceUrl('filings')}">${icon('notebook')}<div><strong>Filings</strong><small>Connect company disclosures to your thesis</small></div></a><a class="product-item" href="${surfaceUrl('watchlist')}">${icon('calendar')}<div><strong>Watchlist & screeners</strong><small>Open or revisit research on a company</small></div></a><a class="product-item featured" href="${routeUrl('brief')}"><span class="discovery-icon">${icon('notebook')}${researchDot()}</span><div><strong>Research notebook <span class="new">Pilot</span></strong><small>Evidence, thesis and conditions for review</small></div></a></div></details><a class="navlink optional-nav" href="${surfaceUrl('community')}">Community</a><a class="navlink optional-nav" href="${surfaceUrl('markets')}">Markets</a><a class="navlink optional-nav" href="https://www.tradingview.com/brokers/" target="_blank" rel="noopener">Brokers</a><a class="navlink optional-nav" href="https://www.tradingview.com/about/" target="_blank" rel="noopener">More</a><a class="navlink research-nav" href="${routeUrl('brief')}">${researchDot()}Research <span class="new">Pilot</span></a></nav><div class="header-end"><span class="language">${icon('globe')} EN</span><span class="avatar" aria-label="Demo profile">A</span><a class="button getstarted" href="https://www.tradingview.com/pricing/" target="_blank" rel="noopener"><span>Get started</span></a></div></header>`;}
 function home(){return `<div class="home">${header()}<main class="hero"><video class="earth" autoplay muted loop playsinline poster="https://static.tradingview.com/static/bundles/earth-blurred.0375ae5d4a11366fb585.webp" aria-hidden="true"><source src="https://static.tradingview.com/static/bundles/earth.avc1.f6a145c79bffd1ef7941.mp4" type="video/mp4"></video><h1>Where the world does markets</h1><p>Join 100 million traders and investors taking the future into their own hands.</p><a class="button hero-cta" href="https://www.tradingview.com/pricing/" target="_blank" rel="noopener"><span>Get started for free</span></a><p class="fine">$0 forever, no credit card needed</p><div class="home-note">DEMONSTRATION PROTOTYPE · PROPOSED RESEARCH WORKSPACE</div></main></div>`;}
-function companySelect(){return `<label class="company-switch"><span class="sr-only">Research company</span><select id="company-switch">${Object.keys(companyNames).map(s=>selectedOption(s,s+' · '+companyNames[s],route.symbol)).join('')}</select></label>`;}
-function sourceReturn(){const from=new URLSearchParams(location.search).get('from');const names={chart:'Supercharts',financials:'Financials',filings:'Filings',overview:'Company overview',watchlist:'Watchlist',screener:'Screener',community:'Community',markets:'Markets'};return names[from]?`<a class="source-return" href="${surfaceUrl(from)+(from==='financials'&&new URLSearchParams(location.search).get('fromDetail')==='statement'?'&detail=statement':'')}">← ${names[from]}</a><span>·</span>`:'';}
+function companyPicker(){
+  return `<nav class="lite-companies" aria-label="Companies">${Object.entries(companyNames).map(([symbol,name])=>`
+    <a class="lite-company" href="${routeUrl('brief',symbol)}" ${symbol===doc.symbol?'aria-current="page"':''}>
+      <strong>${symbol}</strong><span>${esc(name)}</span>
+    </a>`).join('')}</nav>`;
+}
+function sourceReturn(){const from=new URLSearchParams(location.search).get('from');const names={chart:'Supercharts',financials:'Financials',filings:'Filings',overview:'Company overview',watchlist:'Watchlist',screener:'Screener',community:'Community',markets:'Markets'};return names[from]?`<a class="source-return" href="${surfaceUrl(from,'AAPL')+(from==='financials'&&new URLSearchParams(location.search).get('fromDetail')==='statement'?'&detail=statement':'')}">← ${names[from]}</a><span>·</span>`:'';}
 function evidenceCard(record){
   const title=record.metric||'Observation';
   const context=[record.metric,record.period].filter(Boolean).map(esc).join(' · ');
@@ -86,7 +98,10 @@ function notebook(){
   return `${header()}<main class="lite-notebook">
     <div class="workspace-toolbar"><nav class="crumb" aria-label="Breadcrumb">${sourceReturn()}<span>Research notebook</span></nav>
     <div class="save-tools"><span data-save-status role="status"></span><details class="lite-menu"><summary aria-label="Notebook options">⋯</summary><button class="icon-button" data-action="export">Export JSON</button></details></div></div>
-    <div class="lite-heading"><h1>${esc(companyNames[doc.symbol])}</h1>${companySelect()}</div>
+    <section class="lite-heading" aria-labelledby="company-picker-title">
+      <h1 id="company-picker-title">Choose a company</h1>
+      ${companyPicker()}
+    </section>
     <section class="lite-section">${modelField('Thesis','thesis',doc.thesis,'textarea','rows="3" maxlength="8000" placeholder="What’s your current view?"')}
     <div class="lite-date">${modelField('Review on (optional)','reviewDate',doc.reviewDate,'date')}</div></section>
     <section class="lite-section" aria-labelledby="evidence-title"><div class="panel-head"><h2 id="evidence-title">Evidence</h2><button class="primary" data-action="add-evidence">+ Add observation</button></div>
@@ -165,7 +180,6 @@ if(!event.target.closest('#rail-research-widget'))closeRailWidget();const anchor
 document.addEventListener('input',event=>{const field=event.target.dataset.model;if(field){doc[field]=event.target.value;save();}});
 document.addEventListener('change',event=>{
   const field=event.target;
-  if(field.id==='company-switch')go(routeUrl('brief',field.value));
   if(field.type==='date'&&field.dataset.model){doc[field.dataset.model]=field.value;save();}
 });
 document.addEventListener('submit',event=>{
