@@ -99,6 +99,42 @@ button,input,select,textarea{font:inherit}select,input,textarea{color:#131722;ba
 .research-panel .research-view .record-text{font-size:14px}
 .research-panel .research-view .lite-record .icon-button{font-size:11px}
 .research-panel .research-view .lite-record .small{font-size:11px}
+
+.quality-gap{display:inline-block;background:#fff3e0;border:1px solid #efce92;color:#825600;border-radius:4px;padding:4px 6px;font-size:11px;line-height:1.4}
+.quality-notice{margin:18px 0;padding:12px 14px;background:#fffaf0;border:1px solid #efce92;border-radius:6px;font-size:12px;color:#72501b}
+.quality-notice p{margin:6px 0;line-height:1.5}
+.quality-fix{display:block;border:0;background:transparent;color:#72501b;padding:6px 0;text-align:left;font-size:12px;white-space:normal;height:auto;line-height:1.5}
+.quality-fix:hover{text-decoration:underline;background:transparent}
+.research-comparison{border:1px solid #e0e3eb;border-radius:6px;padding:12px;margin:18px 0 24px}
+.research-comparison summary,.thesis-difference summary,.saved-version summary,.version-save summary{cursor:pointer;font-weight:600;font-size:13px}
+.comparison-picker{border:0;padding:0;margin:14px 0;max-height:220px;overflow:auto}
+.comparison-picker legend{font-size:11px;color:#787b86;padding:0;margin-bottom:8px}
+.comparison-picker label{display:flex;align-items:flex-start;gap:8px;font-size:12px;line-height:1.5;margin:8px 0;font-weight:400}
+.comparison-picker input{width:15px;min-width:15px;height:15px;margin:2px 0 0;flex-shrink:0}
+.comparison-notice{font-size:12px;line-height:1.5;color:#72501b;background:#fffaf0;border-radius:4px;padding:10px}
+.comparison-table{overflow:auto;margin:12px 0}
+.comparison-table table{border-collapse:collapse;table-layout:fixed;width:max-content;min-width:100%;font-size:12px}
+.comparison-table th,.comparison-table td{white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #e0e3eb;padding:10px;vertical-align:top;text-align:left;width:180px;max-width:180px}
+.comparison-table th:first-child{width:85px;max-width:85px;background:#f8f9fb;font-weight:500}
+.comparison-table thead{background:#f8f9fb}
+.comparison-table .quality-gap{margin-top:7px}
+.thesis-difference{border:1px solid #e0e3eb;border-radius:6px;margin:20px 0;padding:12px}
+.thesis-difference h3{font-size:13px;margin-top:20px}
+.version-diff{margin:18px 0;font-size:13px}
+.version-diff>div{padding:8px 10px;background:#f8f9fb;margin-top:6px}
+.version-diff>div:last-child{background:#f2f5ff}
+.version-diff span{font-size:10px;color:#787b86}
+.version-diff p,.version-evidence p{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5;margin:6px 0}
+.version-evidence{border-bottom:1px solid #e0e3eb;margin:12px 0;padding:0 0 12px;font-size:12px}
+.version-evidence strong{display:block;margin:6px 0}
+.version-evidence a{font-size:11px}
+.version-evidence .quality-gap{margin:6px 0 0}
+.version-save{padding:18px 0;border-top:1px solid #e0e3eb}
+.version-save>.primary{margin-top:16px}
+.version-save>.small{line-height:1.5;font-size:11px;color:#787b86}
+.saved-version{padding:14px 0;border-bottom:1px solid #e0e3eb}
+.research-panel .comparison-picker input{padding:0}
+.research-panel .comparison-table .text-link{font-size:12px}
 </style></head><body><div id="root"></div><script>const icon=(name)=>{const paths={search:'<circle cx="10.8" cy="10.8" r="7.3"/><path d="m16.2 16.2 4.4 4.4"/>',chevron:'<path d="m5 9 7 7 7-7"/>',globe:'<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6.5c4 2 10 2 14 0M5 17.5c4-2 10-2 14 0"/>',chart:'<path d="M3 20h18M5 16V9h4v7m3 4V5h4v15m3 0V2M3 7l6-4 5 2 7-4"/>',notebook:'<rect x="5" y="3" width="15" height="18" rx="2"/><path d="M9 3v18M3 7h4M3 12h4M3 17h4M12 8h5M12 12h5M12 16h3"/>',screener:'<path d="M3 5h18M5 12h14M8 19h8"/><circle cx="8" cy="5" r="2" fill="currentColor"/><circle cx="16" cy="12" r="2" fill="currentColor"/>',calendar:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 2v6M17 2v6M3 11h18M7 15h3M14 15h3"/>'};return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths[name]||paths.notebook}</svg>`};
 const logo='<svg width="36" height="28" viewBox="0 0 36 28" aria-hidden="true"><path d="M14 22H7V11H0V4h14v18zM28 22h-8l7.5-18h8L28 22z" fill="currentColor"/><circle cx="20" cy="8" r="4" fill="currentColor"/></svg>';
 'use strict';
@@ -107,9 +143,9 @@ const companyNames={AAPL:'Apple Inc.',MSFT:'Microsoft Corporation',NVDA:'NVIDIA 
 const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>window.crypto?.randomUUID?.()||Date.now().toString(36)+Math.random().toString(36).slice(2);
 const researchViews=[['goal','Goal'],['approach','Approach'],['evidence','Evidence'],['reasoning','Reasoning'],['challenges','Challenges'],['conclusion','Conclusion']];
-function newResearch(symbol){return {symbol,question:'',horizon:'',approach:'',questions:[],arguments:[],thesis:'',limitations:'',invalidation:'',reviewDate:'',evidence:[],updatedAt:null};}
+function newResearch(symbol){return {symbol,question:'',horizon:'',approach:'',questions:[],arguments:[],thesis:'',limitations:'',invalidation:'',reviewDate:'',evidence:[],comparisonIds:[],versions:[],reviewReason:'',reviewEvidenceIds:[],updatedAt:null};}
 function normalizeResearch(record){
-  return {...newResearch(record.symbol),...record,questions:Array.isArray(record.questions)?record.questions:[],arguments:Array.isArray(record.arguments)?record.arguments:[],evidence:Array.isArray(record.evidence)?record.evidence:[]};
+  return {...newResearch(record.symbol),...record,versions:Array.isArray(record.versions)?record.versions:[],comparisonIds:Array.isArray(record.comparisonIds)?record.comparisonIds:[],reviewEvidenceIds:Array.isArray(record.reviewEvidenceIds)?record.reviewEvidenceIds:[],questions:Array.isArray(record.questions)?record.questions:[],arguments:Array.isArray(record.arguments)?record.arguments:[],evidence:Array.isArray(record.evidence)?record.evidence:[]};
 }
 function seed(){return {version:2,documents:{}};}
 let state,storageAvailable=true;
@@ -139,6 +175,91 @@ function companyPicker(){
     </a>`).join('')}</nav>`;
 }
 function sourceReturn(){const from=new URLSearchParams(location.search).get('from');const names={chart:'Supercharts',financials:'Financials',filings:'Filings',overview:'Company overview',watchlist:'Watchlist',screener:'Screener',community:'Community',markets:'Markets'};return names[from]?`<a class="source-return" href="${surfaceUrl(from,'AAPL')+(from==='financials'&&new URLSearchParams(location.search).get('fromDetail')==='statement'?'&detail=statement':'')}">← ${names[from]}</a><span>·</span>`:'';}
+function evidenceGaps(record){
+  const gaps=[];
+  if(!record.period?.trim())gaps.push('Period missing');
+  if(!safeUrl(record.source))gaps.push(record.source?'Source URL invalid':'Source missing');
+  return gaps;
+}
+function evidenceGapBadge(record){
+  const gaps=evidenceGaps(record);
+  return gaps.length?`<span class="quality-gap">${gaps.map(esc).join(' · ')}</span>`:'';
+}
+function evidenceQuality(){
+  const incomplete=doc.evidence.filter(record=>evidenceGaps(record).length);
+  if(!incomplete.length)return '';
+  return `<div class="quality-notice" role="note"><strong>Evidence gaps</strong><p>${incomplete.length} of ${doc.evidence.length} observations have a missing period or an invalid or missing source.</p>
+    ${incomplete.map(record=>`<button class="quality-fix" data-action="edit-evidence" data-id="${esc(record.id)}">${esc(record.metric||record.observation.slice(0,55))} · ${evidenceGaps(record).map(esc).join(', ')} →</button>`).join('')}</div>`;
+}
+function evidenceLabel(record){
+  return (record.metric||record.observation.slice(0,90))+' · '+(record.period||'Period not recorded')+(record.sample?' · sample':'');
+}
+function comparison(){
+  const selected=doc.evidence.filter(record=>doc.comparisonIds.includes(record.id));
+  const periods=new Set(selected.map(record=>record.period?.trim().toLowerCase()).filter(Boolean));
+  const notice=selected.some(record=>!record.period?.trim())?'Add the missing periods before comparing.':
+    periods.size>1?'Period labels differ. Check reporting dates, duration and units before drawing a conclusion.':
+    'Matching labels alone do not establish comparable definitions or units.';
+  return `<details class="research-comparison" open><summary>Compare evidence</summary>
+    <fieldset class="comparison-picker"><legend>Select observations</legend>${doc.evidence.map(record=>`<label><input type="checkbox" data-compare-id="${esc(record.id)}" ${doc.comparisonIds.includes(record.id)?'checked':''}><span>${esc(evidenceLabel(record))}</span></label>`).join('')||'<p class="small">Add observations in Evidence to compare them here.</p>'}</fieldset>
+    ${selected.length>=2?`<p class="comparison-notice">${notice}</p><div class="comparison-table" role="region" aria-label="Evidence comparison" tabindex="0"><table>
+      <thead><tr><th scope="col">Field</th>${selected.map(record=>`<th scope="col">${esc(record.metric||'Observation')}${record.sample?' · sample':''}</th>`).join('')}</tr></thead>
+      <tbody><tr><th scope="row">Period</th>${selected.map(record=>`<td>${esc(record.period||'Missing')}</td>`).join('')}</tr>
+      <tr><th scope="row">Observation</th>${selected.map(record=>`<td>${esc(record.observation)}</td>`).join('')}</tr>
+      <tr><th scope="row">Source</th>${selected.map(record=>`<td>${sourceLink(record.source)}${evidenceGapBadge(record)}</td>`).join('')}</tr></tbody></table></div>
+      <button class="button" data-action="compare-argument">+ Argument from selected evidence</button>`:'<p class="small">Select at least two observations.</p>'}
+  </details>`;
+}
+function evidenceChanges(version){
+  const previous=new Map(version.evidence.map(record=>[record.id,record]));
+  const current=new Map(doc.evidence.map(record=>[record.id,record]));
+  const changes=[];
+  const contents=record=>JSON.stringify([record.observation,record.metric,record.period,record.source,record.sourceName,record.questionId,record.stance,!!record.sample]);
+  doc.evidence.forEach(record=>{
+    const old=previous.get(record.id);
+    if(!old)changes.push({type:'Added',record});
+    else if(contents(old)!==contents(record))changes.push({type:'Updated',record,previous:old});
+  });
+  version.evidence.forEach(record=>{if(!current.has(record.id))changes.push({type:'Removed',record});});
+  return changes;
+}
+function savedDate(value){return new Date(value).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'});}
+function changeReview(){
+  const latest=doc.versions[doc.versions.length-1];
+  if(!latest)return '<p class="small">Save the first version to establish a baseline for your next review.</p>';
+  const fields=[['thesis','Thesis'],['limitations','Limitations'],['invalidation','Conditions for revision'],['reviewDate','Review date']];
+  return `<details class="thesis-difference" open><summary>Since version ${doc.versions.length} · ${esc(savedDate(latest.savedAt))}</summary>
+    ${fields.filter(([key])=>(latest[key]||'')!==(doc[key]||'')).map(([key,label])=>`<div class="version-diff"><strong>${label}</strong><div><span>Saved</span><p>${esc(latest[key]||'Empty')}</p></div><div><span>Current draft</span><p>${esc(doc[key]||'Empty')}</p></div></div>`).join('')||'<p class="small">The thesis and review fields match the saved version.</p>'}
+    <h3>Evidence changes</h3>${evidenceChanges(latest).map(change=>`<div class="version-evidence"><span class="badge">${change.type}</span><strong>${esc(evidenceLabel(change.record))}</strong><p>${esc(change.record.observation)}</p>
+      ${change.previous?`<p class="small">Previously · ${esc(evidenceLabel(change.previous))}<br>${esc(change.previous.observation)}<br>${sourceLink(change.previous.source,'Previous source ↗')}</p>`:''}
+      ${sourceLink(change.record.source)}${evidenceGapBadge(change.record)}</div>`).join('')||'<p class="small">No evidence changes since this version.</p>'}
+  </details>`;
+}
+function versionHistory(){
+  return `<details class="research-summary"><summary>Thesis history · ${doc.versions.length} ${doc.versions.length===1?'version':'versions'}</summary>
+    ${doc.versions.slice().reverse().map((version,index)=>`<details class="saved-version"><summary>Version ${doc.versions.length-index} · ${esc(savedDate(version.savedAt))}</summary>
+      <h3>Saved thesis</h3><p>${esc(version.thesis)}</p><h3>Review reason</h3><p>${esc(version.reason||'Initial version')}</p>
+      <h3>Limitations</h3><p>${esc(version.limitations||'None recorded')}</p><h3>Conditions for revision</h3><p>${esc(version.invalidation||'None recorded')}</p>
+      <p>Review on · ${esc(version.reviewDate||'Not set')}</p><h3>Evidence at this version</h3>
+      ${version.evidence.map(record=>`<div class="version-evidence"><strong>${esc(evidenceLabel(record))}</strong>${version.reviewEvidenceIds.includes(record.id)?'<span class="badge">Informed this review</span>':''}<p>${esc(record.observation)}</p>${sourceLink(record.source)}${evidenceGapBadge(record)}</div>`).join('')||'<p class="small">No evidence recorded.</p>'}
+      <h3>Arguments at this version</h3>${version.arguments.map(argument=>`<p><strong>${esc(argument.side)}</strong> · ${esc(argument.text)}</p>`).join('')||'<p class="small">No arguments recorded.</p>'}
+    </details>`).join('')||'<p class="small">No saved versions yet.</p>'}</details>`;
+}
+function saveThesisVersion(){
+  if(!doc.thesis.trim()){notify('Write a thesis before saving a version.');document.querySelector('[data-model="thesis"]')?.focus();return;}
+  if(doc.versions.length&&!doc.reviewReason.trim()){notify('Record why you changed or retained the thesis.');document.querySelector('[data-model="reviewReason"]')?.focus();return;}
+  const snapshot=JSON.parse(JSON.stringify({
+    id:uid(),savedAt:new Date().toISOString(),thesis:doc.thesis,limitations:doc.limitations,
+    invalidation:doc.invalidation,reviewDate:doc.reviewDate,question:doc.question,horizon:doc.horizon,
+    approach:doc.approach,questions:doc.questions,evidence:doc.evidence,arguments:doc.arguments,
+    reason:doc.reviewReason.trim(),reviewEvidenceIds:doc.reviewEvidenceIds.filter(id=>doc.evidence.some(record=>record.id===id))
+  }));
+  doc.versions.push(snapshot);
+  doc.reviewReason='';
+  doc.reviewEvidenceIds=[];
+  const ok=save();render();
+  notify(ok?'Thesis version saved.':'Version kept in memory. Storage unavailable; export a copy.');
+}
 function evidenceCard(record){
   const title=record.metric||'Observation';
   const linkedQuestion=doc.questions.find(question=>question.id===record.questionId);
@@ -150,7 +271,7 @@ function evidenceCard(record){
     </div></div>
     <p class="record-text">${record.sample?'<span class="badge sample">Illustrative sample</span> ':''}${esc(record.observation)}</p>
     ${linkedQuestion?'<p class="small">Question · '+esc(linkedQuestion.title)+'</p>':''}
-    <div class="lite-meta"><span class="small">${!record.period?'Period not recorded':''}${!record.source?' · Source not recorded':''}</span>${record.stance?`<span class="badge">${esc(record.stance)}</span>`:''}${safeUrl(record.source)?sourceLink(record.source,(record.sourceName||'Source')+' ↗'):''}</div>
+    <div class="lite-meta">${evidenceGapBadge(record)}${record.stance?`<span class="badge">${esc(record.stance)}</span>`:''}${safeUrl(record.source)?sourceLink(record.source,(record.sourceName||'Source')+' ↗'):''}</div>
   </article>`;
 }
 function researchViewUrl(view){
@@ -182,6 +303,7 @@ function researchApproach(){
 function researchEvidence(){
   return `<div class="panel-head"><h2>Evidence</h2><button class="primary" data-action="add-evidence">+ Add observation</button></div>
     <div class="research-sources" aria-label="Source products">${[['financials','Financials'],['filings','Filings'],['chart','Supercharts']].map(([key,label])=>`<a href="${panelCaptureUrl({},key)}">${label} ↗</a>`).join('')}</div>
+    ${evidenceQuality()}
     ${doc.evidence.slice().reverse().map(evidenceCard).join('')||'<p class="small">No observations yet.</p>'}`;
 }
 function argumentCard(argument){
@@ -194,6 +316,7 @@ function argumentCard(argument){
 function researchReasoning(){
   return `<div class="panel-head"><h2>Reasoning & gaps</h2><button class="primary" data-action="add-argument">+ Argument</button></div>
     <p class="small">Compare matching periods and connect your interpretation to saved evidence.</p>
+    ${comparison()}
     ${doc.arguments.filter(argument=>['Supports','Challenges','Open issue'].includes(argument.side)).map(argumentCard).join('')||'<p class="small">No arguments recorded.</p>'}`;
 }
 function researchChallenges(){
@@ -207,6 +330,15 @@ function researchConclusion(){
     ${modelField('Limitations & missing evidence','limitations',doc.limitations,'textarea','rows="2" maxlength="5000"')}
     ${modelField('What would change your view?','invalidation',doc.invalidation,'textarea','rows="2" maxlength="5000"')}
     <div class="lite-date">${modelField('Review on (optional)','reviewDate',doc.reviewDate,'date')}</div>
+    ${evidenceQuality()}
+    <div id="thesis-review-preview">${changeReview()}</div>
+    <section class="version-save">
+      ${modelField('Why did you change or retain this thesis?','reviewReason',doc.reviewReason,'textarea','rows="2" maxlength="5000" placeholder="Which findings affected your view?"')}
+      <details><summary>Evidence informing this review (optional)</summary><fieldset class="comparison-picker"><legend>Select evidence</legend>${doc.evidence.map(record=>`<label><input type="checkbox" data-review-evidence-id="${esc(record.id)}" ${doc.reviewEvidenceIds.includes(record.id)?'checked':''}><span>${esc(evidenceLabel(record))}</span></label>`).join('')||'<p class="small">No evidence recorded.</p>'}</fieldset></details>
+      <button class="primary" data-action="save-thesis-version">Save thesis version</button>
+      <p class="small">Draft edits save automatically. Each saved version keeps its thesis, evidence and arguments.</p>
+    </section>
+    ${versionHistory()}
     <details class="research-summary"><summary>Research summary</summary>
       <h3>Goal</h3><p>${esc(doc.question||'No question recorded')} · ${esc(doc.horizon||'No horizon recorded')}</p>
       <h3>Approach</h3><p>${esc(doc.approach||'No approach notes recorded')}</p>
@@ -333,8 +465,8 @@ function openQuestion(id){
   const question=doc.questions.find(item=>item.id===id);
   showModal(question?'Edit question':'Add question',formField('Research question','title',question?.title||'','text','required maxlength="300"'),id,false,'question');
 }
-function openArgument(id,side='Supports'){
-  const argument=doc.arguments.find(item=>item.id===id)||{text:'',side,evidenceIds:[]};
+function openArgument(id,side='Supports',evidenceIds=[]){
+  const argument=doc.arguments.find(item=>item.id===id)||{text:'',side,evidenceIds};
   showModal(id?'Edit argument':'Add argument',`
     ${textarea('Argument, gap or risk','text',argument.text,'required rows="4" maxlength="8000"')}
     <label class="form-label">Type<select name="side">${['Supports','Challenges','Open issue','Risk','Alternative'].map(value=>selectedOption(value,value,argument.side)).join('')}</select></label>
@@ -356,6 +488,8 @@ else if(name==='outline-entry'){const active=document.querySelector('.reference-
 else if(name==='edit-question')openQuestion(id);
 else if(name==='remove-question')removeRecord('question',id);
 else if(name==='add-argument')openArgument();
+else if(name==='compare-argument')openArgument(null,'Supports',doc.evidence.filter(record=>doc.comparisonIds.includes(record.id)).map(record=>record.id));
+else if(name==='save-thesis-version')saveThesisVersion();
 else if(name==='add-risk')openArgument(null,'Risk');
 else if(name==='edit-argument')openArgument(id);
 else if(name==='remove-argument')removeRecord('argument',id);
@@ -366,9 +500,29 @@ else if(name==='suggest-checks'){
   const ok=save();render();notify(ok?'Suggested checks added.':'Checks added in memory. Export a copy.');
 }else if(name==='export')exportResearch();else if(name==='undo'&&undoAction){undoRemoval();}return;}
 const anchor=event.target.closest('a');if(anchor&&!event.metaKey&&!event.ctrlKey&&!event.shiftKey&&!event.altKey&&event.button===0&&anchor.getAttribute('href')?.startsWith('?')&&!anchor.target){event.preventDefault();go(anchor.getAttribute('href'));return;}const products=document.querySelector('.products');if(products&&!products.contains(event.target))products.open=false;});
-document.addEventListener('input',event=>{const field=event.target.dataset.model;if(field){doc[field]=event.target.value;save();}});
+document.addEventListener('input',event=>{const field=event.target.dataset.model;if(field){
+  doc[field]=event.target.value;save();
+  if(['thesis','limitations','invalidation','reviewDate'].includes(field)){
+    const preview=document.getElementById('thesis-review-preview');
+    if(preview)preview.innerHTML=changeReview();
+  }
+}});
 document.addEventListener('change',event=>{
   const field=event.target;
+  if(field.dataset.compareId){
+    const id=field.dataset.compareId;
+    doc.comparisonIds=doc.comparisonIds.filter(value=>value!==id);
+    if(field.checked)doc.comparisonIds.push(id);
+    const ok=save();render();
+    document.querySelector('[data-compare-id="'+CSS.escape(id)+'"]')?.focus();
+    if(!ok)notify('Comparison kept in memory. Export a copy.');
+  }
+  if(field.dataset.reviewEvidenceId){
+    const id=field.dataset.reviewEvidenceId;
+    doc.reviewEvidenceIds=doc.reviewEvidenceIds.filter(value=>value!==id);
+    if(field.checked)doc.reviewEvidenceIds.push(id);
+    save();
+  }
   if(field.dataset.questionStatus){
     const question=doc.questions.find(item=>item.id===field.dataset.questionStatus);
     if(question){question.status=field.value;save();}
