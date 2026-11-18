@@ -1,6 +1,6 @@
-# Research notebook — review branch
+# Research notebook
 
-Branch `research-notebook-lite` contains the company Research side panel and standalone company workspace. The review build runs locally at http://127.0.0.1:8875/?surface=chart&symbol=AAPL&panel=research.
+The prototype contains the company Research side panel and standalone company workspace. Open https://alexsherman91.github.io/tradingview-research-pilot/?surface=chart&symbol=AAPL&panel=research.
 
 Six freely accessible sections cover Goal, optional Approach, Evidence, Reasoning, Challenges, and Conclusion. Research is stored in the browser, with separate company documents and JSON export.
 
@@ -16,7 +16,7 @@ Draft edits save automatically. Save thesis version creates a separate snapshot 
 
 Each subsequent version requires a review reason. Users may link the evidence that informed their review. The current draft is compared with the latest saved version, including added, updated and removed evidence. History retains the source records as they existed in each version, including records subsequently edited or removed. JSON export includes these snapshots and review links.
 
-Existing browser documents remain readable. History begins with the first explicitly saved version.
+Existing browser documents remain readable. If the new workspace has no saved data, it reads research from the previous prototype storage. History begins with the first explicitly saved version.
 
 ## Scope
 

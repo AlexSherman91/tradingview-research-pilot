@@ -149,7 +149,7 @@ function normalizeResearch(record){
 }
 function seed(){return {version:2,documents:{}};}
 let state,storageAvailable=true;
-try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||'null');state=saved&&saved.version===2&&saved.documents&&typeof saved.documents==='object'?saved:seed();}catch(error){state=seed();storageAvailable=false;}
+try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY)||localStorage.getItem('tv-research-workspace-v2')||'null');state=saved&&saved.version===2&&saved.documents&&typeof saved.documents==='object'?saved:seed();}catch(error){state=seed();storageAvailable=false;}
 let route,doc,modal=null,undoAction=null;
 function safeUrl(value){try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)?u.href:'';}catch{return '';}}
 function liveUrl(surface,symbol=doc?.symbol||'AAPL'){const base=`https://www.tradingview.com/symbols/NASDAQ-${symbol}/`;return {overview:base,financials:base+'financials-income-statement/',filings:base+'documents/',chart:`https://www.tradingview.com/chart/?symbol=NASDAQ%3A${symbol}`,watchlist:'https://www.tradingview.com/chart/',screener:'https://www.tradingview.com/screener/',community:base+'ideas/',markets:'https://www.tradingview.com/markets/'}[surface]||base;}
